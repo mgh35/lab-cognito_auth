@@ -1,3 +1,6 @@
+# IDE
+.idea/
+
 # Distribution / packaging
 .Python
 env/
@@ -15,6 +18,11 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
+node_modules/
+
+# Run artifacts
+.build/
+.venv/
 
 # Serverless directories
 .serverless
