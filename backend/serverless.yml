@@ -15,12 +15,12 @@ custom:
     file: .build/stack.json # toml, yaml, yml, and json format is available
 
 functions:
-  unauthed:
-    handler: handler.unauthed
-    events:
-      - http:
-          path: api/unauthed
-          method: get
+#  unauthed:
+#    handler: handler.unauthed
+#    events:
+#      - http:
+#          path: api/unauthed
+#          method: get
 
   authed:
     handler: handler.authed

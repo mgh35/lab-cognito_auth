@@ -1,5 +1,5 @@
 {
-  "name": "simple",
+  "name": "backend",
   "devDependencies": {
     "serverless-stack-output": "^0.2.3"
   }

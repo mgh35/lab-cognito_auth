@@ -29,6 +29,19 @@ https://www.youtube.com/watch?v=OAR4ZHP8DEg&list=PLRPVYPWlT8jha6d-A4yeLySkLUwte6
 
 https://medium.com/faun/amazon-cognito-authentication-managed-by-means-of-single-sign-on-8073ebc3c9c4#:~:targetText=Amazon%20Cognito%20allows%20you%20to,credentials%20to%20access%20AWS%20resources.
 
+
+#### Security
+
+https://hueniverse.com/oauth-2-0-and-the-road-to-hell-8eec45921529
+
+https://hueniverse.com/oauth-bearer-tokens-are-a-terrible-idea-1a300fd12e13
+
+https://www.nds.ruhr-uni-bochum.de/media/ei/veroeffentlichungen/2017/10/17/main.pdf
+
+https://www.pingidentity.com/en/company/blog/posts/2019/jwt-security-nobody-talks-about.html
+
+http://cryto.net/~joepie91/blog/2016/06/13/stop-using-jwt-for-sessions/
+
 #### SRP
 
 https://medium.com/@intermediation/secure-remote-password-protocol-31ba8c2ab0b
@@ -37,7 +50,8 @@ https://medium.com/@harwoeck/password-and-credential-management-in-2018-56f43669
 
 https://tools.ietf.org/html/rfc5054
 
-
 #### Gotchas
 
 https://github.com/boto/boto3/issues/1703
+
+https://docs.aws.amazon.com/general/latest/gr/signing_aws_api_requests.html
