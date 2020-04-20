@@ -1,0 +1,15 @@
+<html>
+    <body>
+        <table>
+            <thead>Headers</thead>
+            <tbody>
+                {% for h in request.headers %}
+                <tr>
+                    <td>{{ h[0] }}</td>
+                    <td>{{ h[1] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </body>
+</html>
