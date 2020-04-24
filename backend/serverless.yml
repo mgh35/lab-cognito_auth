@@ -12,7 +12,7 @@ custom:
   auth_domain_prefix: lab-cog-auth-simple-c0427632
   output:
 #    handler: scripts/output.handler # Same syntax as you already know
-    file: .build/stack.json # toml, yaml, yml, and json format is available
+    file: ../.build/stack.json # toml, yaml, yml, and json format is available
 
 functions:
 #  unauthed:

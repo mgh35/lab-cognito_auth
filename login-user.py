@@ -6,7 +6,7 @@ import json
 from warrant.aws_srp import AWSSRP, ForceChangePasswordException
 
 
-with open('../.build/stack.json', 'r') as f:
+with open('.build/stack.json', 'r') as f:
     config = json.loads(f.read())
 
 user_pool_id = config['UserPoolId']
@@ -26,5 +26,5 @@ except ForceChangePasswordException:
     new_password = getpass.getpass('Password change required. New password: ')
     tokens = aws_srp.set_new_password_challenge(new_password)
 
-with open('../.build/tokens.json', 'w') as f:
+with open('.build/tokens.json', 'w') as f:
     f.write(json.dumps(tokens["AuthenticationResult"]))

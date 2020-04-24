@@ -29,12 +29,9 @@ https://www.youtube.com/watch?v=OAR4ZHP8DEg&list=PLRPVYPWlT8jha6d-A4yeLySkLUwte6
 
 https://medium.com/faun/amazon-cognito-authentication-managed-by-means-of-single-sign-on-8073ebc3c9c4#:~:targetText=Amazon%20Cognito%20allows%20you%20to,credentials%20to%20access%20AWS%20resources.
 
+https://docs.aws.amazon.com/cognito/latest/developerguide/login-endpoint.html
 
-#### Security
-
-https://hueniverse.com/oauth-2-0-and-the-road-to-hell-8eec45921529
-
-https://hueniverse.com/oauth-bearer-tokens-are-a-terrible-idea-1a300fd12e13
+#### JWT
 
 https://www.nds.ruhr-uni-bochum.de/media/ei/veroeffentlichungen/2017/10/17/main.pdf
 
@@ -49,6 +46,24 @@ https://medium.com/@intermediation/secure-remote-password-protocol-31ba8c2ab0b
 https://medium.com/@harwoeck/password-and-credential-management-in-2018-56f43669d588
 
 https://tools.ietf.org/html/rfc5054
+
+### OAuth
+
+https://aaronparecki.com/oauth-2-simplified/
+
+https://www.csoonline.com/article/3216404/what-is-oauth-how-the-open-authorization-framework-works.html
+
+https://hueniverse.com/oauth-2-0-and-the-road-to-hell-8eec45921529
+
+https://medium.com/securing/what-is-going-on-with-oauth-2-0-and-why-you-should-not-use-it-for-authentication-5f47597b2611
+
+https://oauth.net/articles/authentication/
+
+https://www.digitalocean.com/community/tutorials/an-introduction-to-oauth-2
+
+https://hueniverse.com/oauth-bearer-tokens-are-a-terrible-idea-1a300fd12e13
+
+https://www.oauth.com/oauth2-servers/authorization/security-considerations/
 
 #### Gotchas
 
