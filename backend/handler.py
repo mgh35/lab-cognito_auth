@@ -1,14 +1,20 @@
-import json
-
 
 def unauthed(event, context):
     return {
-        'statusCode': 200,
-        'body': json.dumps('You reached the unauthed endpoint. No biggie.')
+        "statusCode": 200,
+        "headers": {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Credentials": True,
+        },
+        "body": "You reached the unauthed endpoint. No biggie."
     }
 
 def authed(event, context):
     return {
-        'statusCode': 200,
-        'body': json.dumps('You reached the authed endpoint. Congratulations!')
+        "statusCode": 200,
+        "headers": {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": True,
+        },
+        "body": "You reached the authed endpoint. Congratulations!"
     }

@@ -11,7 +11,6 @@ plugins:
 custom:
   auth_domain_prefix: lab-cog-auth-simple-c0427632
   output:
-#    handler: scripts/output.handler # Same syntax as you already know
     file: ../.build/stack.json # toml, yaml, yml, and json format is available
 
 functions:
@@ -21,6 +20,7 @@ functions:
 #      - http:
 #          path: api/unauthed
 #          method: get
+#          cors: true
 
   authed:
     handler: handler.authed
@@ -28,6 +28,7 @@ functions:
       - http:
           path: api/authed
           method: get
+          cors: true
           authorizer:
             type: COGNITO_USER_POOLS
             authorizerId:
