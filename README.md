@@ -59,11 +59,23 @@ https://medium.com/securing/what-is-going-on-with-oauth-2-0-and-why-you-should-n
 
 https://oauth.net/articles/authentication/
 
+https://medium.com/@robert.broeckelmann/when-to-use-which-oauth2-grants-and-oidc-flows-ec6a5c00d864
+
 https://www.digitalocean.com/community/tutorials/an-introduction-to-oauth-2
 
 https://hueniverse.com/oauth-bearer-tokens-are-a-terrible-idea-1a300fd12e13
 
 https://www.oauth.com/oauth2-servers/authorization/security-considerations/
+
+https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-userpools-server-contract-reference.html
+
+#### OAuth - PKCE
+
+https://developer.okta.com/blog/2019/08/22/okta-authjs-pkce
+
+https://github.com/aaronpk/pkce-vanilla-js/blob/master/index.html
+
+https://codeburst.io/oauth-2-0-authorization-code-grant-flow-with-pkce-for-web-applications-by-example-4dbcc089e805
 
 #### Gotchas
 
