@@ -1,84 +1,69 @@
 # Cognito Auth
 
-The point of this lab is to get my head around AWS auth (particularly for serverless apps).
+The point of this lab is to get my head around AWS [auth](./findings/Auth.md). And particularly how to use it for for 
+serverless apps. No real driving question or outcome - just an exploration with a general intent to sort out the broad 
+strokes of authing to serverless apps.
+
+[Cognito](./findings/Cognito.md) is the natural choice for a managed auth service tightly integrated into AWS. So 
+Cognito it is.
+
+The real question is how to create a serverless app whose APIs require Cognito auth. In this context, I see 2 key use-
+cases:
+
+### Programmatic API Client
+
+In this use-case, we are looking to follow the common pattern of allowing users access to the API using credentials (an 
+API key) they are given. 
+
+The primary considerations:
+- The API client is trusted, so there are no concerns with it having access to the credentials.
+- We might want to give different users access to different things, so having the User Pool is important.
+
+Cognito offers various flows that would support this use-case (some documented 
+[here](https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-authentication-flow.html)).
+The [recommended approach](https://medium.com/@intermediation/secure-remote-password-protocol-31ba8c2ab0b) on a modern 
+platform is SRP, which involves a [cryptographic challenge-response protocol](https://tools.ietf.org/html/rfc5054) to 
+avoid ever having to share the plaintext password over the network. 
+
+See the login-user.py script for an example of this, here running the entire flow programmatically as in the case of an
+API client that would be given username and password. The warrant package was used to avoid building out the whole 
+protocol, but the warrant source of the AWSSRP object easy to read to see the flow.
+
+One gotcha with this is that it requires using a boto3 client with `signature_version=botocore.UNSIGNED`. This is 
+because the client is not authenticated to the Cognito service. The auth endpoints allow this but the [boto3 package 
+defaults to assuming the client is authed](https://github.com/boto/boto3/issues/1703).
+
+### Interactive User Website
+
+In this use-case, the user is authenticating to a web application in their browser. The user will need to interactively 
+sign in, which could be through a third-party (eg "Login with Google"). 
+
+This changes the primary considerations:
+- The app should not have access to the user's credentials. The user should only be entering their credentials on the 
+authentication server (and should see this is what's happening).
+- We still might want to give different users access to different things.
+- We might want to allow users to log in through a variety of third-party authentication systems but still present a 
+common interface for the app.
+
+This is a core flow in Cognito and uses the industry-standard [OAuth 2.0](https://tools.ietf.org/html/rfc6749) protocol.
+With a view to using a serverless backend, the intent is to run this entirely in the untrusted browser. This prevents 
+the Authentication Code grant type. PKCE becomes the recommended grant type. (There are a number of other documented 
+grant types which could be used - particularly the Implicit grant type which was originally the recommended solution for
+similar situations - but they are 
+[strongly advised against](https://medium.com/securing/what-is-going-on-with-oauth-2-0-and-why-you-should-not-use-it-for-authentication-5f47597b2611)
+.)
+
+For a production app, AWS provide the Amplify API which they recommend. Here, though, the intent was to look at some of
+the implementation details. So Aaron Parecki's [PKCE demo](https://github.com/aaronpk/pkce-vanilla-js) with simple 
+JS-native implementations was used instead. See webserver/templates/login.html for the example.
 
 
-## References
+## Background
 
-https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-integrate-with-cognito.html
+[Auth](findings/Auth.md)
 
-https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-api-usage-plans.html
+[Oauth](findings/OAuth.md)
 
-https://medium.com/trackit/tutorial-how-to-create-an-api-gateway-with-python-cognito-and-serverless-1543644a836a
+[Cognito](findings/Cognito.md)
 
-https://serverless.com/blog/strategies-implementing-user-authentication-serverless-applications/
-
-https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-authentication-flow.html
-
-https://www.smashingmagazine.com/2017/08/user-authentication-web-ios-apps-aws-cognito-part-1/
-
-https://www.integralist.co.uk/posts/cognito/
-
-https://aws-blog.de/2020/01/machine-to-machine-authentication-with-cognito-and-serverless.html
-
-https://medium.com/@Da_vidgf/http-basic-auth-with-api-gateway-and-serverless-5ae14ad0a270
-
-https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html
-
-https://www.youtube.com/watch?v=OAR4ZHP8DEg&list=PLRPVYPWlT8jha6d-A4yeLySkLUwte6Yfr&index=11&t=0s
-
-https://medium.com/faun/amazon-cognito-authentication-managed-by-means-of-single-sign-on-8073ebc3c9c4#:~:targetText=Amazon%20Cognito%20allows%20you%20to,credentials%20to%20access%20AWS%20resources.
-
-https://docs.aws.amazon.com/cognito/latest/developerguide/login-endpoint.html
-
-#### JWT
-
-https://www.nds.ruhr-uni-bochum.de/media/ei/veroeffentlichungen/2017/10/17/main.pdf
-
-https://www.pingidentity.com/en/company/blog/posts/2019/jwt-security-nobody-talks-about.html
-
-http://cryto.net/~joepie91/blog/2016/06/13/stop-using-jwt-for-sessions/
-
-#### SRP
-
-https://medium.com/@intermediation/secure-remote-password-protocol-31ba8c2ab0b
-
-https://medium.com/@harwoeck/password-and-credential-management-in-2018-56f43669d588
-
-https://tools.ietf.org/html/rfc5054
-
-### OAuth
-
-https://aaronparecki.com/oauth-2-simplified/
-
-https://www.csoonline.com/article/3216404/what-is-oauth-how-the-open-authorization-framework-works.html
-
-https://hueniverse.com/oauth-2-0-and-the-road-to-hell-8eec45921529
-
-https://medium.com/securing/what-is-going-on-with-oauth-2-0-and-why-you-should-not-use-it-for-authentication-5f47597b2611
-
-https://oauth.net/articles/authentication/
-
-https://medium.com/@robert.broeckelmann/when-to-use-which-oauth2-grants-and-oidc-flows-ec6a5c00d864
-
-https://www.digitalocean.com/community/tutorials/an-introduction-to-oauth-2
-
-https://hueniverse.com/oauth-bearer-tokens-are-a-terrible-idea-1a300fd12e13
-
-https://www.oauth.com/oauth2-servers/authorization/security-considerations/
-
-https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-userpools-server-contract-reference.html
-
-#### OAuth - PKCE
-
-https://developer.okta.com/blog/2019/08/22/okta-authjs-pkce
-
-https://github.com/aaronpk/pkce-vanilla-js/blob/master/index.html
-
-https://codeburst.io/oauth-2-0-authorization-code-grant-flow-with-pkce-for-web-applications-by-example-4dbcc089e805
-
-#### Gotchas
-
-https://github.com/boto/boto3/issues/1703
-
-https://docs.aws.amazon.com/general/latest/gr/signing_aws_api_requests.html
+[Serverless](findings/Serverless.md)
